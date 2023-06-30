@@ -9,38 +9,6 @@ import playVideoIcon from './Assets/images/play.png'
 import recIcon from './Assets/images/rec-button.png'
 
 let isStopRecordingVideo = false;
-const controllerContainer = {
-    position: "absolute",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    bottom: "45px",
-    width: "100%"
-}
-const playButtonStyle = {
-    position: 'absolute',
-    margin: "auto",
-    inset: 0,
-    height: "100px",
-    width: "100px",
-    borderRadius: 999,
-    zIndex: 1000,
-    display: 'flex',
-    alignItems: "center",
-    justifyContent: "center",
-    background: "transparent",
-};
-const buttonControlStyle = {
-    borderRadius: 999,
-    border: "1px solid rgb(182, 163, 163)",
-    background: "transparent",
-    margin: "auto 5px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "50px",
-    height: "50px"
-}
 const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptRatio}) => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -60,26 +28,6 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
     const [showBtnPlay, setShowBtnPlay] = useState(false);
     const [showRecordingPhoto, setShowRecordingPhoto] = useState(false);
     const [cameraMode, setCameraMode] = useState("video"); // photo
-
-    console.log("sajjad: ", {
-        stream,
-        recorder,
-        recordedChunks,
-        isRecording,
-        isPlaying,
-        videoUrl,
-        photoUrl,
-        showRecordingVideo,
-        showBtnPlay,
-        showRecordingPhoto,
-        cameraMode,
-        videoRef,
-        canvasRef,
-        videoPlayBackRef,
-        mediaRecorderRef,
-        recordedChunksRef,
-        playVideoPlayBack
-    })
 
     /*useEffect(() => {
         console.log("sajjad 2 :", {isStopRecordingVideo, showRecordingVideo, videoUrl})
@@ -206,15 +154,15 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
     };
 
     return (
-        <div style={{width: width, height: height, position: "relative"}}>
+        <div className="rc-camera-js-container" style={{width: width, height: height}}>
             {/*            <button onClick={startCamera} disabled={stream}>Start Camera</button>
                 <button onClick={stopCamera} disabled={!stream}>Stop Camera</button>*/}
 
             {isRecording && <img src={recIcon} width={30} height={30} alt="recording"
                                  style={{position: "absolute", top: 20, left: 20}}/>}
 
-            <div style={controllerContainer}>
-                <button style={buttonControlStyle} onClick={() => {
+            <div className="action-controller-container">
+                <button className="button-control-style" onClick={() => {
                     setIsPlaying(false);
                     setVideoUrl(null);
                     setShowRecordingVideo(false)
@@ -228,23 +176,23 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
                 {
                     cameraMode === "video" ?
                         <div style={{display: 'flex'}}>
-                            <button style={buttonControlStyle} onClick={startRecording}
+                            <button className="button-control-style" onClick={startRecording}
                                     disabled={isRecording || showRecordingVideo}>
                                 <img width={35} height={35} src={startRecordIcon} alt="startRecord"/>
                             </button>
-                            <button style={buttonControlStyle} onClick={stopRecording} disabled={!isRecording}>
+                            <button className="button-control-style" onClick={stopRecording} disabled={!isRecording}>
                                 <img width={35} height={35} src={stopRecordIcon} alt="stopRecord"/>
                             </button>
-                            <button style={buttonControlStyle} onClick={resetVideo} disabled={!showRecordingVideo}>
+                            <button className="button-control-style" onClick={resetVideo} disabled={!showRecordingVideo}>
                                 <img width={35} height={35} src={deleteIcon} alt="delete"/>
                             </button>
                         </div>
                         : <div style={{display: 'flex'}}>
-                            <button style={buttonControlStyle} onClick={takePhoto}
+                            <button className="button-control-style" onClick={takePhoto}
                                     disabled={isRecording || isPlaying || !stream || photoUrl}>
                                 <img width={35} height={35} src={takePhotoIcon} alt="takePhoto"/>
                             </button>
-                            <button style={buttonControlStyle} onClick={deletePhoto}
+                            <button className="button-control-style" onClick={deletePhoto}
                                     disabled={isRecording || isPlaying || !showRecordingPhoto}>
                                 <img width={35} height={35} src={deleteIcon} alt="delete"/>
                             </button>
@@ -254,7 +202,7 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
 
             {
                 showRecordingVideo && showBtnPlay &&
-                <button style={playButtonStyle}
+                <button className="button-play-style"
                         ref={playVideoPlayBack} onClick={playVideo}
                         disabled={!showRecordingVideo}>
                     <img src={playVideoIcon} width={100} height={100}/>
@@ -281,7 +229,7 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
                     height="100%" style={{display: 'none'}}/>
             {photoUrl && <img width="100%"
                               height="100%"
-                              src={photoUrl} alt="Taken Photo"/>}
+                              src={photoUrl} alt="Photo"/>}
         </div>
     );
 };
