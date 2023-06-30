@@ -142,8 +142,8 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
         const context = canvasRef.current.getContext('2d');
         context.drawImage(videoRef.current, 0, 0, width, height);
         const photoUrl = canvasRef.current.toDataURL('image/png');
-        setShowRecordingPhoto(true)
         setPhotoUrl(photoUrl);
+        setShowRecordingPhoto(true)
     };
 
     const deletePhoto = () => {
@@ -183,7 +183,8 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
                             <button className="button-control-style" onClick={stopRecording} disabled={!isRecording}>
                                 <img width={35} height={35} src={stopRecordIcon} alt="stopRecord"/>
                             </button>
-                            <button className="button-control-style" onClick={resetVideo} disabled={!showRecordingVideo}>
+                            <button className="button-control-style" onClick={resetVideo}
+                                    disabled={!showRecordingVideo}>
                                 <img width={35} height={35} src={deleteIcon} alt="delete"/>
                             </button>
                         </div>
@@ -214,6 +215,7 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
                 <video ref={videoRef}
                        width="100%"
                        height="100%"
+                       className="sajjad"
                        muted={!enableAudio}
                        disablePictureInPicture={true}
                        style={{display: stream ? 'block' : 'none'}}
@@ -225,8 +227,8 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
                        height="100%" disablePictureInPicture
                        autoPlay playsInline style={{backgroundColor: "black"}} controls={false}/>
             }
-            <canvas ref={canvasRef} width="100%"
-                    height="100%" style={{display: 'none'}}/>
+            <canvas ref={canvasRef} width={width} height={height}
+                    style={{display: 'none'}}/>
             {photoUrl && <img width="100%"
                               height="100%"
                               src={photoUrl} alt="Photo"/>}
