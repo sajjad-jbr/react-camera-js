@@ -1,14 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
-import photoIcon from './Assets/images/camera.png'
-import videoIcon from './Assets/images/video.png'
-import startRecordIcon from './Assets/images/record.png'
-import stopRecordIcon from './Assets/images/stop-button.png'
-import deleteIcon from './Assets/images/bin.png'
-import takePhotoIcon from './Assets/images/diaphragm.png'
-import playVideoIcon from './Assets/images/play.png'
-import recIcon from './Assets/images/rec-button.png'
+import photoIcon from './Assets/images/camera.png';
+import videoIcon from './Assets/images/video.png';
+import startRecordIcon from './Assets/images/record.png';
+import stopRecordIcon from './Assets/images/stop-button.png';
+import deleteIcon from './Assets/images/bin.png';
+import takePhotoIcon from './Assets/images/diaphragm.png';
+import playVideoIcon from './Assets/images/play.png';
+import recIcon from './Assets/images/rec-button.png';
+import '../src/index.css';
 
-let isStopRecordingVideo = false;
 const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptRatio}) => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -28,13 +28,6 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
     const [showBtnPlay, setShowBtnPlay] = useState(false);
     const [showRecordingPhoto, setShowRecordingPhoto] = useState(false);
     const [cameraMode, setCameraMode] = useState("video"); // photo
-
-    /*useEffect(() => {
-        console.log("sajjad 2 :", {isStopRecordingVideo, showRecordingVideo, videoUrl})
-        if (isStopRecordingVideo === true && showRecordingVideo === true && Boolean(videoUrl)) {
-            isStopRecordingVideo = false
-        }
-    }, [videoUrl])*/
 
     const handleDataAvailable = (event) => {
         if (event.data.size > 0) {
@@ -73,7 +66,8 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
 
     useEffect(() => {
         return () => {
-            startCamera()
+            startCamera().then(() => {
+            })
         };
     }, []);
 
@@ -114,7 +108,6 @@ const CameraComponent = ({width, height, facingMode, enableAudio = true, acceptR
             recorder.stop();
             const recordedBlob = new Blob(recordedChunksRef.current, {type: 'video/webm'});
             const videoUrl = URL.createObjectURL(recordedBlob);
-            isStopRecordingVideo = true;
             setVideoUrl(videoUrl);
             setShowRecordingVideo(true);
             setShowBtnPlay(true)

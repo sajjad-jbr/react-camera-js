@@ -4,7 +4,6 @@ import CameraComponent from './CameraComponent';
 const App = () => {
     return (
         <div>
-            <h1>Camera Example</h1>
             <CameraComponent
                 width={640}
                 height={480}
